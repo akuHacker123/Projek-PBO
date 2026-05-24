@@ -1,0 +1,26 @@
+[
+  {
+    "idPelanggan": "M-VIP-01",
+    "nama": "GalSkuy",
+    "tipeMember": "VIP",
+    "poin": 7128
+  },
+  {
+    "idPelanggan": "M-550",
+    "nama": "Galang",
+    "tipeMember": "VIP",
+    "poin": 0
+  },
+  {
+    "idPelanggan": "M-910",
+    "nama": "Galtot",
+    "tipeMember": "VIP",
+    "poin": 0
+  },
+  {
+    "idPelanggan": "M-REG-1779634629615",
+    "nama": "Galski",
+    "tipeMember": "REGULAR",
+    "poin": 150
+  }
+]

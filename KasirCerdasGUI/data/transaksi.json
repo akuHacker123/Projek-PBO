@@ -1,0 +1,262 @@
+[
+  {
+    "idTransaksi": "TX-1779380443392",
+    "tanggal": "2026-05-21T23:20:43+0700",
+    "listBelanjaan": [
+      {
+        "produk": {
+          "idProduk": "P001",
+          "nama": "Laptop ASUS ROG ",
+          "harga": 1.5E7,
+          "stok": 4
+        },
+        "kuantitas": 1
+      }
+    ],
+    "totalKotor": 1.5E7,
+    "diskon": 1500000.0,
+    "totalBersih": 1.35E7,
+    "metodeYangDigunakan": {
+      "type": "EWallet",
+      "kembalian": 0.0
+    }
+  },
+  {
+    "idTransaksi": "TX-1779380562085",
+    "tanggal": "2026-05-21T23:22:42+0700",
+    "listBelanjaan": [
+      {
+        "produk": {
+          "idProduk": "P001",
+          "nama": "Laptop ASUS ROG ",
+          "harga": 1.5E7,
+          "stok": 3
+        },
+        "kuantitas": 1
+      }
+    ],
+    "totalKotor": 1.5E7,
+    "diskon": 1500000.0,
+    "totalBersih": 1.35E7,
+    "metodeYangDigunakan": {
+      "type": "EWallet",
+      "kembalian": 0.0
+    }
+  },
+  {
+    "idTransaksi": "TX-1779384552469",
+    "tanggal": "2026-05-22T00:29:12+0700",
+    "listBelanjaan": [
+      {
+        "produk": {
+          "idProduk": "P001",
+          "nama": "Laptop ASUS ROG ",
+          "harga": 1.5E7,
+          "stok": 2
+        },
+        "kuantitas": 1
+      }
+    ],
+    "totalKotor": 1.5E7,
+    "diskon": 1500000.0,
+    "totalBersih": 1.35E7,
+    "metodeYangDigunakan": {
+      "type": "EWallet",
+      "kembalian": 0.0
+    }
+  },
+  {
+    "idTransaksi": "TX-1779386654652",
+    "tanggal": "2026-05-22T01:04:14+0700",
+    "listBelanjaan": [
+      {
+        "produk": {
+          "idProduk": "P001",
+          "nama": "Laptop ASUS ROG ",
+          "harga": 1.5E7,
+          "stok": 1
+        },
+        "kuantitas": 1
+      }
+    ],
+    "totalKotor": 1.5E7,
+    "diskon": 1500000.0,
+    "totalBersih": 1.35E7,
+    "metodeYangDigunakan": {
+      "type": "EWallet",
+      "kembalian": 0.0
+    }
+  },
+  {
+    "idTransaksi": "TX-1779386659705",
+    "tanggal": "2026-05-22T01:04:19+0700",
+    "listBelanjaan": [
+      {
+        "produk": {
+          "idProduk": "P001",
+          "nama": "Laptop ASUS ROG ",
+          "harga": 1.5E7,
+          "stok": 0
+        },
+        "kuantitas": 1
+      }
+    ],
+    "totalKotor": 1.5E7,
+    "diskon": 1500000.0,
+    "totalBersih": 1.35E7,
+    "metodeYangDigunakan": {
+      "type": "EWallet",
+      "kembalian": 0.0
+    }
+  },
+  {
+    "idTransaksi": "TX-1779387840778",
+    "tanggal": "2026-05-22T01:24:00+0700",
+    "listBelanjaan": [
+      {
+        "produk": {
+          "idProduk": "P002",
+          "nama": "Mouse Gaming RGB",
+          "harga": 500000.0,
+          "stok": 8
+        },
+        "kuantitas": 1
+      }
+    ],
+    "totalKotor": 500000.0,
+    "diskon": 50000.0,
+    "totalBersih": 450000.0,
+    "metodeYangDigunakan": {
+      "type": "EWallet",
+      "kembalian": 0.0
+    }
+  },
+  {
+    "idTransaksi": "TX-1779387929515",
+    "tanggal": "2026-05-22T01:25:29+0700",
+    "listBelanjaan": [
+      {
+        "produk": {
+          "idProduk": "P002",
+          "nama": "Mouse Gaming RGB",
+          "harga": 500000.0,
+          "stok": 8
+        },
+        "kuantitas": 1
+      },
+      {
+        "produk": {
+          "idProduk": "P003",
+          "nama": "Keyboard Mech",
+          "harga": 850000.0,
+          "stok": 5
+        },
+        "kuantitas": 2
+      }
+    ],
+    "totalKotor": 2200000.0,
+    "diskon": 220000.0,
+    "totalBersih": 1980000.0,
+    "metodeYangDigunakan": {
+      "type": "Kartu",
+      "kembalian": 0.0
+    }
+  },
+  {
+    "idTransaksi": "TX-1779631712452",
+    "tanggal": "2026-05-24T21:08:32+0700",
+    "listBelanjaan": [
+      {
+        "produk": {
+          "idProduk": "P002",
+          "nama": "Mouse Gaming RGB",
+          "harga": 500000.0,
+          "stok": 5
+        },
+        "kuantitas": 1
+      }
+    ],
+    "totalKotor": 500000.0,
+    "diskon": 50000.0,
+    "totalBersih": 450000.0,
+    "metodeYangDigunakan": {
+      "type": "Tunai",
+      "kembalian": 1.0
+    }
+  },
+  {
+    "idTransaksi": "TX-1779631798872",
+    "tanggal": "2026-05-24T21:09:58+0700",
+    "listBelanjaan": [
+      {
+        "produk": {
+          "idProduk": "P002",
+          "nama": "Mouse Gaming RGB",
+          "harga": 500000.0,
+          "stok": 5
+        },
+        "kuantitas": 1
+      },
+      {
+        "produk": {
+          "idProduk": "P002",
+          "nama": "Mouse Gaming RGB",
+          "harga": 500000.0,
+          "stok": 5
+        },
+        "kuantitas": 1
+      }
+    ],
+    "totalKotor": 1000000.0,
+    "diskon": 100000.0,
+    "totalBersih": 900000.0,
+    "metodeYangDigunakan": {
+      "type": "Tunai",
+      "kembalian": 100000.0
+    }
+  },
+  {
+    "idTransaksi": "TX-1779634643803",
+    "tanggal": "2026-05-24T21:57:23+0700",
+    "listBelanjaan": [
+      {
+        "produk": {
+          "idProduk": "P002",
+          "nama": "Mouse Gaming RGB",
+          "harga": 500000.0,
+          "stok": 4
+        },
+        "kuantitas": 1
+      }
+    ],
+    "totalKotor": 500000.0,
+    "diskon": 0.0,
+    "totalBersih": 500000.0,
+    "metodeYangDigunakan": {
+      "type": "Tunai",
+      "kembalian": 100000.0
+    }
+  },
+  {
+    "idTransaksi": "TX-1779634831396",
+    "tanggal": "2026-05-24T22:00:31+0700",
+    "listBelanjaan": [
+      {
+        "produk": {
+          "idProduk": "P002",
+          "nama": "Mouse Gaming RGB",
+          "harga": 500000.0,
+          "stok": 2
+        },
+        "kuantitas": 2
+      }
+    ],
+    "totalKotor": 1000000.0,
+    "diskon": 0.0,
+    "totalBersih": 1000000.0,
+    "metodeYangDigunakan": {
+      "type": "Tunai",
+      "kembalian": 1000000.0
+    }
+  }
+]
