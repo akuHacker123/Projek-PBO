@@ -258,5 +258,120 @@
       "type": "Tunai",
       "kembalian": 1000000.0
     }
+  },
+  {
+    "idTransaksi": "TX-1780159091451",
+    "tanggal": "2026-05-30T23:38:11+0700",
+    "listBelanjaan": [
+      {
+        "produk": {
+          "idProduk": "P002",
+          "nama": "Mouse Gaming RGB",
+          "harga": 500000.0,
+          "stok": -2
+        },
+        "kuantitas": 2
+      },
+      {
+        "produk": {
+          "idProduk": "P001",
+          "nama": "Laptop ASUS ROG",
+          "harga": 700000.0,
+          "stok": 9980
+        },
+        "kuantitas": 5
+      }
+    ],
+    "totalKotor": 4500000.0,
+    "diskon": 0.0,
+    "totalBersih": 4500000.0,
+    "metodeYangDigunakan": {
+      "type": "Tunai",
+      "kembalian": 5500000.0
+    }
+  },
+  {
+    "idTransaksi": "TX-1780159175641",
+    "tanggal": "2026-05-30T23:39:35+0700",
+    "listBelanjaan": [
+      {
+        "produk": {
+          "idProduk": "P002",
+          "nama": "Mouse Gaming RGB",
+          "harga": 500000.0,
+          "stok": -2
+        },
+        "kuantitas": 2
+      },
+      {
+        "produk": {
+          "idProduk": "P001",
+          "nama": "Laptop ASUS ROG",
+          "harga": 700000.0,
+          "stok": 9980
+        },
+        "kuantitas": 5
+      },
+      {
+        "produk": {
+          "idProduk": "P001",
+          "nama": "Laptop ASUS ROG",
+          "harga": 700000.0,
+          "stok": 9980
+        },
+        "kuantitas": 10
+      }
+    ],
+    "totalKotor": 1.15E7,
+    "diskon": 0.0,
+    "totalBersih": 1.15E7,
+    "metodeYangDigunakan": {
+      "type": "Tunai",
+      "kembalian": 8.85E7
+    }
+  },
+  {
+    "idTransaksi": "TX-1780159710278",
+    "tanggal": "2026-05-30T23:48:30+0700",
+    "listBelanjaan": [
+      {
+        "produk": {
+          "idProduk": "P001",
+          "nama": "Laptop ASUS ROG",
+          "harga": 700000.0,
+          "stok": 9979
+        },
+        "kuantitas": 1
+      }
+    ],
+    "totalKotor": 700000.0,
+    "diskon": 0.0,
+    "totalBersih": 700000.0,
+    "metodeYangDigunakan": {
+      "type": "Tunai",
+      "kembalian": 300000.0
+    }
+  },
+  {
+    "idTransaksi": "TX-1780159758948",
+    "tanggal": "2026-05-30T23:49:18+0700",
+    "listBelanjaan": [
+      {
+        "produk": {
+          "idProduk": "P003",
+          "nama": "Keyboard Mech",
+          "harga": 850000.0,
+          "stok": 4
+        },
+        "kuantitas": 1
+      }
+    ],
+    "totalKotor": 850000.0,
+    "diskon": 0.0,
+    "totalBersih": 850000.0,
+    "metodeYangDigunakan": {
+      "type": "Tunai",
+      "kembalian": 150000.0
+    }
   }
 ]

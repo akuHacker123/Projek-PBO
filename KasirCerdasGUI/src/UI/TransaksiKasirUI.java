@@ -25,7 +25,8 @@ public class TransaksiKasirUI extends javax.swing.JFrame {
     private List<Pelanggan> daftarPelanggan;
     private Pelanggan pelangganAktif;
     private DefaultTableModel tableModel;
-    
+    private javax.swing.JComboBox<String> cmbProduk;
+    private javax.swing.JLabel lblStokInfo;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TransaksiKasirUI.class.getName());
 
     /**
@@ -38,7 +39,29 @@ public class TransaksiKasirUI extends javax.swing.JFrame {
         this.mesinKasir = new KasirService();
         this.daftarPelanggan = JsonUtil.bacaDariJson("data/pelanggan.json", new TypeToken<List<Pelanggan>>(){}.getType());
         this.tableModel = (DefaultTableModel) tblKeranjang.getModel();
+        muatDaftarProduk();
         this.tableModel.setRowCount(0);
+    }
+    
+    private void muatDaftarProduk() {
+        cmbPilihProduk.removeAllItems();
+        for (Produk p : stokGudang.getDaftarProduk()) {
+            cmbPilihProduk.addItem(p.getIdProduk() + " - " + p.getNama());
+        }
+        updateInfoStok();
+    }
+
+    private void updateInfoStok() {
+        String selected = (String) cmbPilihProduk.getSelectedItem();
+        if (selected != null) {
+            String idProduk = selected.split(" - ")[0]; // Ambil "P001" dari "P001 - Laptop ASUS ROG"
+            for (Produk p : stokGudang.getDaftarProduk()) {
+                if (p.getIdProduk().equals(idProduk)) {
+                    lblInfoStok.setText("Stok: " + p.getStok() + " | Harga: Rp " + (int) p.getHarga());
+                    return;
+                }
+            }
+        }
     }
 
     /**
@@ -51,7 +74,6 @@ public class TransaksiKasirUI extends javax.swing.JFrame {
     private void initComponents() {
 
         txtNamaPelanggan = new javax.swing.JTextField();
-        txtNamaProduk = new javax.swing.JTextField();
         txtJumlahBeli = new javax.swing.JTextField();
         btnTambah = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -60,12 +82,15 @@ public class TransaksiKasirUI extends javax.swing.JFrame {
         cmbMetodeBayar = new javax.swing.JComboBox<>();
         txtUangBayar = new javax.swing.JTextField();
         btnBayar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        cmbPilihProduk = new javax.swing.JComboBox<>();
+        lblInfoStok = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         txtNamaPelanggan.addActionListener(this::txtNamaPelangganActionPerformed);
-
-        txtNamaProduk.addActionListener(this::txtNamaProdukActionPerformed);
 
         btnTambah.setText("Tambah");
         btnTambah.addActionListener(this::btnTambahActionPerformed);
@@ -91,6 +116,17 @@ public class TransaksiKasirUI extends javax.swing.JFrame {
         btnBayar.setText("Bayar");
         btnBayar.addActionListener(this::btnBayarActionPerformed);
 
+        jLabel1.setText("Nama");
+
+        jLabel2.setText("Produk");
+
+        jLabel3.setText("Jumlah");
+
+        cmbPilihProduk.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbPilihProduk.addActionListener(this::cmbPilihProdukActionPerformed);
+
+        lblInfoStok.setText("Stok");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -110,22 +146,40 @@ public class TransaksiKasirUI extends javax.swing.JFrame {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNamaProduk, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNamaPelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtJumlahBeli, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnTambah))))
-                .addContainerGap(169, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmbPilihProduk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtNamaPelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblInfoStok)
+                            .addComponent(btnTambah)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtJumlahBeli, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(126, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtNamaPelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNamaPelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtNamaProduk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(cmbPilihProduk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtJumlahBeli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblInfoStok)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtJumlahBeli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnTambah)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
@@ -153,25 +207,28 @@ public class TransaksiKasirUI extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbMetodeBayarActionPerformed
 
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
-                                                                           
         try {
-            // Ambil text input dari textfield di GUI
             String namaPelanggan = txtNamaPelanggan.getText().trim();
-            String namaBarangInput = txtNamaProduk.getText().trim(); 
-            int jumlah = Integer.parseInt(txtJumlahBeli.getText().trim());
-
+       
             // Validasi input kosong
             if (namaPelanggan.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Nama Pelanggan tidak boleh kosong!");
                 return;
             }
-            if (namaBarangInput.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Nama/Merk Produk tidak boleh kosong!");
+            int jumlah = Integer.parseInt(txtJumlahBeli.getText().trim());
+            
+            // 1. Ambil produk dari dropdown
+            String selected = (String) cmbPilihProduk.getSelectedItem();
+            if (selected == null) {
+                JOptionPane.showMessageDialog(this, "Pilih produk dulu!");
                 return;
             }
-
-            // 1. Logika Cari atau Set Pelanggan Berdasarkan Nama
+            String idProduk = selected.split(" - ")[0];
+            Produk produkDitemukan = stokGudang.cariProdukBerdasarId(idProduk);
+            
+            // 2. Cari atau buat pelanggan (SEBELUM tambah ke keranjang)
             if (pelangganAktif == null || !pelangganAktif.getNama().equalsIgnoreCase(namaPelanggan)) {
+                mesinKasir = new KasirService();
                 pelangganAktif = null;
                 for (Pelanggan p : daftarPelanggan) {
                     if (p.getNama().equalsIgnoreCase(namaPelanggan)) {
@@ -179,7 +236,6 @@ public class TransaksiKasirUI extends javax.swing.JFrame {
                         break;
                     }
                 }
-                // Jika nama pelanggan tidak terdaftar di JSON, otomatis buat member VIP baru untuk simulasi
                 if (pelangganAktif == null) {
                     pelangganAktif = new Pelanggan("M-REG-" + System.currentTimeMillis(), namaPelanggan, "REGULAR");
                     daftarPelanggan.add(pelangganAktif);
@@ -193,40 +249,24 @@ public class TransaksiKasirUI extends javax.swing.JFrame {
                 }
             }
 
-            // 2. Logika Mencari Produk Berdasarkan Nama/Merk di dalam data produk JSON
-            Produk produkDitemukan = null;
-            for (Produk prod : stokGudang.getDaftarProduk()) {
-                if (prod.getNama().toLowerCase().contains(namaBarangInput.toLowerCase())) {
-                    produkDitemukan = prod;
-                    break;
-                }
-            }
-
-            if (produkDitemukan == null) {
-                JOptionPane.showMessageDialog(this, "Produk dengan merk '" + namaBarangInput + "' tidak ditemukan di database JSON!");
-                return;
-            }
-
-            // 3. Validasi stok di backend menggunakan ID asli produk yang ketemu
+            // 3. Validasi stok
             stokGudang.validasiStokBarang(produkDitemukan.getIdProduk(), jumlah);
             mesinKasir.tambahKeKeranjang(produkDitemukan, jumlah);
 
-            // 4. Masukkan data belanja ke baris JTable visual (Format Harga double tetap dibiarkan di tabel)
+            // 4. Tambah ke tabel
             double subtotal = produkDitemukan.getHarga() * jumlah;
             tableModel.addRow(new Object[]{
-                produkDitemukan.getIdProduk(), 
-                produkDitemukan.getNama(), 
-                produkDitemukan.getHarga(), 
-                jumlah, 
+                produkDitemukan.getIdProduk(),
+                produkDitemukan.getNama(),
+                produkDitemukan.getHarga(),
+                jumlah,
                 subtotal
             });
 
-            // 5. Update teks total tagihan di layar GUI (Dipaksa cast ke (int) biar ga ada .0 di belakangnya)
+            // 5. Update total
             lblTotalTagihan.setText("Total Tagihan: Rp " + (int) mesinKasir.hitungTotalTagihan());
-            
-            // Bersihkan input teks barang biar bisa ketik barang selanjutnya
-            txtNamaProduk.setText("");
             txtJumlahBeli.setText("");
+            updateInfoStok();
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Jumlah beli harus berupa angka!");
@@ -234,10 +274,6 @@ public class TransaksiKasirUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Gagal: " + e.getMessage());
         }
     }//GEN-LAST:event_btnTambahActionPerformed
-
-    private void txtNamaProdukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNamaProdukActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNamaProdukActionPerformed
 
     private void btnBayarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBayarActionPerformed
                                        
@@ -267,7 +303,7 @@ public class TransaksiKasirUI extends javax.swing.JFrame {
 
             // --- JALUR ABSOLUT: MEMAKSA SIMPAN PERUBAHAN LANGSUNG KE FILE FISIK WINDOWS ---
             stokGudang.simpanPerubahan(); // Update stok berkurang di produk.json
-            util.JsonUtil.simpanKeJson("D:/KasirCerdasGUI/data/pelanggan.json", daftarPelanggan); // Update poin baru pelanggan
+            util.JsonUtil.simpanKeJson("data/pelanggan.json", daftarPelanggan); // Update poin baru pelanggan
 
             // Tampilkan pop up bukti transaksi sukses
             JOptionPane.showMessageDialog(this, "TRANSAKSI SUKSES!\n"
@@ -281,6 +317,8 @@ public class TransaksiKasirUI extends javax.swing.JFrame {
             txtUangBayar.setText(""); // Kotak uang bayar bersih
             txtNamaPelanggan.setText(""); // Kotak nama pelanggan bersih
             pelangganAktif = null; // Reset session transaksi
+            mesinKasir = new KasirService();
+            muatDaftarProduk();
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Nominal uang pembayaran harus berupa angka!");
@@ -289,6 +327,10 @@ public class TransaksiKasirUI extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_btnBayarActionPerformed
+
+    private void cmbPilihProdukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPilihProdukActionPerformed
+        updateInfoStok();
+    }//GEN-LAST:event_cmbPilihProdukActionPerformed
 
     /**
      * @param args the command line arguments
@@ -319,12 +361,16 @@ public class TransaksiKasirUI extends javax.swing.JFrame {
     private javax.swing.JButton btnBayar;
     private javax.swing.JButton btnTambah;
     private javax.swing.JComboBox<String> cmbMetodeBayar;
+    private javax.swing.JComboBox<String> cmbPilihProduk;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblInfoStok;
     private javax.swing.JLabel lblTotalTagihan;
     private javax.swing.JTable tblKeranjang;
     private javax.swing.JTextField txtJumlahBeli;
     private javax.swing.JTextField txtNamaPelanggan;
-    private javax.swing.JTextField txtNamaProduk;
     private javax.swing.JTextField txtUangBayar;
     // End of variables declaration//GEN-END:variables
 }
