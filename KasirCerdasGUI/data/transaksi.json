@@ -576,5 +576,137 @@
       "type": "Tunai",
       "kembalian": 0.0
     }
+  },
+  {
+    "idTransaksi": "TX-1781011122582",
+    "tanggal": "2026-06-09T20:18:42+0700",
+    "listBelanjaan": [
+      {
+        "produk": {
+          "idProduk": "P001",
+          "nama": "Laptop ASUS ROG",
+          "harga": 700000.0,
+          "stok": 9972
+        },
+        "kuantitas": 1
+      }
+    ],
+    "totalKotor": 700000.0,
+    "diskon": 0.0,
+    "totalBersih": 700000.0,
+    "metodeYangDigunakan": {
+      "type": "Tunai",
+      "kembalian": 0.0
+    }
+  },
+  {
+    "idTransaksi": "TX-1781011325987",
+    "tanggal": "2026-06-09T20:22:05+0700",
+    "listBelanjaan": [
+      {
+        "produk": {
+          "idProduk": "P001",
+          "nama": "Laptop ASUS ROG",
+          "harga": 700000.0,
+          "stok": 9967
+        },
+        "kuantitas": 5
+      }
+    ],
+    "totalKotor": 3500000.0,
+    "diskon": 0.0,
+    "totalBersih": 3500000.0,
+    "metodeYangDigunakan": {
+      "type": "EWallet",
+      "kembalian": 0.0
+    }
+  },
+  {
+    "idTransaksi": "TX-1781013389781",
+    "tanggal": "2026-06-09T20:56:29+0700",
+    "listBelanjaan": [
+      {
+        "produk": {
+          "idProduk": "P001",
+          "nama": "Laptop ASUS ROG",
+          "harga": 700000.0,
+          "stok": 9966
+        },
+        "kuantitas": 1
+      }
+    ],
+    "totalKotor": 700000.0,
+    "diskon": 0.0,
+    "totalBersih": 700000.0,
+    "metodeYangDigunakan": {
+      "type": "Tunai",
+      "kembalian": 0.0
+    }
+  },
+  {
+    "idTransaksi": "TX-1781013761054",
+    "tanggal": "2026-06-09T21:02:41+0700",
+    "listBelanjaan": [
+      {
+        "produk": {
+          "idProduk": "P001",
+          "nama": "Laptop ASUS ROG",
+          "harga": 700000.0,
+          "stok": 9965
+        },
+        "kuantitas": 1
+      }
+    ],
+    "totalKotor": 700000.0,
+    "diskon": 0.0,
+    "totalBersih": 700000.0,
+    "metodeYangDigunakan": {
+      "type": "Tunai",
+      "kembalian": 0.0
+    }
+  },
+  {
+    "idTransaksi": "TX-1781013804075",
+    "tanggal": "2026-06-09T21:03:24+0700",
+    "listBelanjaan": [
+      {
+        "produk": {
+          "idProduk": "P001",
+          "nama": "Laptop ASUS ROG",
+          "harga": 700000.0,
+          "stok": 9964
+        },
+        "kuantitas": 1
+      }
+    ],
+    "totalKotor": 700000.0,
+    "diskon": 0.0,
+    "totalBersih": 700000.0,
+    "metodeYangDigunakan": {
+      "type": "EWallet",
+      "kembalian": 0.0
+    }
+  },
+  {
+    "idTransaksi": "TX-1781015633905",
+    "tanggal": "2026-06-09T21:33:53+0700",
+    "listBelanjaan": [
+      {
+        "produk": {
+          "idProduk": "P001",
+          "nama": "Laptop ASUS ROG",
+          "harga": 700000.0,
+          "stok": 9962
+        },
+        "kuantitas": 2
+      }
+    ],
+    "totalKotor": 1400000.0,
+    "diskon": 0.0,
+    "totalBersih": 1400000.0,
+    "metodeYangDigunakan": {
+      "type": "Kartu",
+      "kembalian": 0.0
+    }
   }
 ]

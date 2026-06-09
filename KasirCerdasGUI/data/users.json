@@ -1,0 +1,16 @@
+[
+  {
+    "idUser": "U001",
+    "namaLengkap": "Administrator",
+    "username": "admin",
+    "passwordHash": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+    "role": "ADMIN"
+  },
+  {
+    "idUser": "U002",
+    "namaLengkap": "Kasir Satu",
+    "username": "kasir1",
+    "passwordHash": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+    "role": "KASIR"
+  }
+]

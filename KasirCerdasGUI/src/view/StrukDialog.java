@@ -46,31 +46,20 @@ public class StrukDialog extends JDialog {
         panel.setBackground(Color.WHITE);
         panel.setBorder(new EmptyBorder(16, 20, 16, 20));
 
-        // ── LOGO ──
-        JLabel lblLogo = new JLabel() {
-            @Override protected void paintComponent(Graphics g) {
-                Graphics2D g2 = (Graphics2D) g.create();
-                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                g2.setColor(Color.BLACK);
-                int cx = getWidth() / 2;
-                int[] xAtap = {cx-28, cx, cx+28};
-                int[] yAtap = {22, 4, 22};
-                g2.fillPolygon(xAtap, yAtap, 3);
-                g2.fillRect(cx-22, 20, 44, 28);
-                g2.setColor(Color.WHITE);
-                g2.fillRect(cx-18, 26, 10, 10);
-                g2.fillRect(cx+8,  26, 10, 10);
-                g2.fillRect(cx-8,  32, 16, 16);
-                g2.dispose();
-            }
-        };
-        lblLogo.setPreferredSize(new Dimension(PANEL_W, 54));
-        lblLogo.setMaximumSize(new Dimension(Integer.MAX_VALUE, 54));
+        // LOGO
+        ImageIcon logoIcon = new ImageIcon(getClass().getResource("/assets/chikempruy.png"));
+        Image img = logoIcon.getImage().getScaledInstance(42, 42, Image.SCALE_SMOOTH);
+
+        JLabel lblLogo = new JLabel(new ImageIcon(img));
+        lblLogo.setPreferredSize(new Dimension(PANEL_W, 46));
+        lblLogo.setMaximumSize(new Dimension(Integer.MAX_VALUE, 46));
+        lblLogo.setHorizontalAlignment(SwingConstants.CENTER);
         lblLogo.setAlignmentX(Component.LEFT_ALIGNMENT);
+
         panel.add(lblLogo);
         panel.add(Box.createVerticalStrut(6));
 
-        // ── HEADER TOKO ──
+        // HEADER TOKO
         panel.add(rowCenter("Chikempruy Computer", new Font("Segoe UI", Font.BOLD, 14)));
         panel.add(rowCenter("Jl. Prof. Sudarto No 16D, Tembalang, Semarang", FONT_UI_S));
         panel.add(rowCenter("No. Telp 081299887321", FONT_UI_S));
@@ -85,7 +74,7 @@ public class StrukDialog extends JDialog {
         String jam = sdfJam.format(trx.getTanggal());
 
         panel.add(row2col(tgl,  "Kasir", FONT_UI_S));
-        panel.add(row2col(jam,  "Admin", FONT_UI_S));
+        panel.add(row2col(jam,  "Galang Bintang", FONT_UI_S));
         panel.add(Box.createVerticalStrut(4));
         panel.add(rowLeft("No. " + buatIdStruk(), FONT_UI_S));
         panel.add(Box.createVerticalStrut(6));

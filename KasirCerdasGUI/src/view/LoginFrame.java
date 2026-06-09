@@ -4,21 +4,17 @@
  */
 package view;
 
+import service.AuthService;
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
-/**
- *
- * @author Olivia Oktaviani
- */
+
 public class LoginFrame extends JFrame {
 
     private JTextField txtUsername;
     private JPasswordField txtPassword;
     private JLabel lblStatus;
-
-    private static final String ADMIN_USER = "admin";
-    private static final String ADMIN_PASS = "1234";
+    private AuthService authService = new AuthService();
 
     private static final Color BG = new Color(245, 245, 245);
     private static final Color WHITE = Color.WHITE;
@@ -34,7 +30,7 @@ public class LoginFrame extends JFrame {
     private void initComponents() {
         setTitle("Login");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(360, 300);
+        setSize(380, 420);
         setLocationRelativeTo(null);
         setResizable(false);
         getContentPane().setBackground(BG);
@@ -43,44 +39,62 @@ public class LoginFrame extends JFrame {
         JPanel card = new JPanel();
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
         card.setBackground(WHITE);
+        card.setPreferredSize(new Dimension(315, 360));
         card.setBorder(new CompoundBorder(
-            new LineBorder(BORDER_COLOR),
-            new EmptyBorder(28, 32, 28, 32)
+                new LineBorder(BORDER_COLOR),
+                new EmptyBorder(28, 32, 28, 32)
         ));
 
-        JLabel lblApp = new JLabel("Toko Elektronik");
-        lblApp.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        ImageIcon logoIcon = new ImageIcon(getClass().getResource("/assets/chikempruy.png"));
+        Image img = logoIcon.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+
+        JLabel lblLogo = new JLabel(new ImageIcon(img));
+        lblLogo.setAlignmentX(Component.CENTER_ALIGNMENT);
+        card.add(lblLogo);
+        card.add(Box.createVerticalStrut(10));
+
+        JLabel lblApp = new JLabel("Chikempruy Computer");
+        lblApp.setFont(new Font("Segoe UI", Font.BOLD, 20));
         lblApp.setForeground(TEXT_DARK);
-        lblApp.setAlignmentX(Component.LEFT_ALIGNMENT);
+        lblApp.setAlignmentX(Component.CENTER_ALIGNMENT);
         card.add(lblApp);
+        card.add(Box.createVerticalStrut(5));
 
-        JLabel lblSub = new JLabel("Masuk ke sistem kasir");
-        lblSub.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        JLabel lblSub = new JLabel("Sistem kasir toko komputer");
+        lblSub.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         lblSub.setForeground(TEXT_GRAY);
-        lblSub.setAlignmentX(Component.LEFT_ALIGNMENT);
+        lblSub.setAlignmentX(Component.CENTER_ALIGNMENT);
         card.add(lblSub);
-        card.add(Box.createVerticalStrut(20));
+        card.add(Box.createVerticalStrut(28));
 
-        card.add(fieldLabel("Username"));
-        card.add(Box.createVerticalStrut(4));
+        JPanel formPanel = new JPanel();
+        formPanel.setLayout(new BoxLayout(formPanel, BoxLayout.Y_AXIS));
+        formPanel.setBackground(WHITE);
+        formPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        formPanel.setMaximumSize(new Dimension(220, 210));
+
+        formPanel.add(fieldLabel("Username"));
+        formPanel.add(Box.createVerticalStrut(4));
+
         txtUsername = new JTextField();
         styleField(txtUsername);
-        card.add(txtUsername);
-        card.add(Box.createVerticalStrut(12));
+        formPanel.add(txtUsername);
+        formPanel.add(Box.createVerticalStrut(14));
 
-        card.add(fieldLabel("Password"));
-        card.add(Box.createVerticalStrut(4));
+        formPanel.add(fieldLabel("Password"));
+        formPanel.add(Box.createVerticalStrut(4));
+
         txtPassword = new JPasswordField();
         styleField(txtPassword);
-        card.add(txtPassword);
-        card.add(Box.createVerticalStrut(6));
+        formPanel.add(txtPassword);
+        formPanel.add(Box.createVerticalStrut(6));
 
         lblStatus = new JLabel(" ");
         lblStatus.setFont(new Font("Segoe UI", Font.PLAIN, 11));
         lblStatus.setForeground(new Color(200, 60, 60));
         lblStatus.setAlignmentX(Component.LEFT_ALIGNMENT);
-        card.add(lblStatus);
-        card.add(Box.createVerticalStrut(10));
+        formPanel.add(lblStatus);
+        formPanel.add(Box.createVerticalStrut(10));
 
         JButton btnLogin = new JButton("Masuk");
         btnLogin.setFont(new Font("Segoe UI", Font.BOLD, 13));
@@ -90,9 +104,10 @@ public class LoginFrame extends JFrame {
         btnLogin.setBorderPainted(false);
         btnLogin.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btnLogin.setAlignmentX(Component.LEFT_ALIGNMENT);
-        btnLogin.setMaximumSize(new Dimension(Integer.MAX_VALUE, 36));
-        card.add(btnLogin);
+        btnLogin.setMaximumSize(new Dimension(Integer.MAX_VALUE, 38));
+        formPanel.add(btnLogin);
 
+        card.add(formPanel);
         add(card);
 
         btnLogin.addActionListener(e -> prosesLogin());
@@ -113,8 +128,8 @@ public class LoginFrame extends JFrame {
         tf.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         tf.setForeground(TEXT_DARK);
         tf.setBorder(new CompoundBorder(
-            new LineBorder(BORDER_COLOR),
-            new EmptyBorder(5, 8, 5, 8)
+                new LineBorder(BORDER_COLOR),
+                new EmptyBorder(5, 8, 5, 8)
         ));
         tf.setMaximumSize(new Dimension(Integer.MAX_VALUE, 34));
         tf.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -123,9 +138,17 @@ public class LoginFrame extends JFrame {
     private void prosesLogin() {
         String user = txtUsername.getText().trim();
         String pass = new String(txtPassword.getPassword());
-        if (user.equals(ADMIN_USER) && pass.equals(ADMIN_PASS)) {
+
+        model.User hasil = authService.login(user, pass);
+
+        if (hasil != null) {
             dispose();
-            new KasirFrame();
+
+            if ("ADMIN".equalsIgnoreCase(hasil.getRole())) {
+                new AdminDashboard(hasil);
+            } else {
+                new KasirFrame(hasil);
+            }
         } else {
             lblStatus.setText("Username atau password salah.");
             txtPassword.setText("");

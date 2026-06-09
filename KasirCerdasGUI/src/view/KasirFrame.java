@@ -34,7 +34,10 @@ public class KasirFrame extends JFrame {
     private KasirService kasirService;
     private List<Pelanggan> daftarMember;
     private Pelanggan pelangganAktif;
-    private final NumberFormat rupiahFmt = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
+    private final NumberFormat rupiahFmt =
+            NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
+
+    private model.User userAktif;
 
     // Palet warna
     private static final Color BG = new Color(248, 248, 248);
@@ -48,12 +51,19 @@ public class KasirFrame extends JFrame {
     private static final Color GREEN = new Color(60, 160, 90);
     private static final Color HEADER_BG = new Color(52, 52, 52);
 
-    public KasirFrame() {
-        initData();
-        initComponents();
-        muatTabelProduk();
-    }
-
+        public KasirFrame() {
+            initData();
+            initComponents();
+            muatTabelProduk();
+        }
+        
+        public KasirFrame(model.User user) {
+            this.userAktif = user;
+            initData();
+            initComponents();
+            muatTabelProduk();
+        }
+    
     private void initData() {
         stokService = new StokService();
         if (stokService.getDaftarProduk().isEmpty()) {
@@ -70,7 +80,7 @@ public class KasirFrame extends JFrame {
     }
 
     private void initComponents() {
-        setTitle("Kasir — Toko Elektronik");
+        setTitle("Dashboard Kasir");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1020, 700);
         setLocationRelativeTo(null);
@@ -85,14 +95,14 @@ public class KasirFrame extends JFrame {
         topbar.setPreferredSize(new Dimension(0, 50));
         topbar.setBorder(new EmptyBorder(0, 20, 0, 16));
 
-        JLabel lblNamaApp = new JLabel("Toko Elektronik");
+        JLabel lblNamaApp = new JLabel("Chikempruy Computer");
         lblNamaApp.setFont(new Font("Segoe UI", Font.BOLD, 15));
         lblNamaApp.setForeground(Color.WHITE);
         topbar.add(lblNamaApp, BorderLayout.WEST);
 
         JPanel topRight = new JPanel(new FlowLayout(FlowLayout.RIGHT, 8, 10));
         topRight.setOpaque(false);
-        JLabel lblKasir = new JLabel("Kasir: Admin");
+        JLabel lblKasir = new JLabel("Kasir: Galang Bintang");
         lblKasir.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         lblKasir.setForeground(new Color(180, 180, 180));
         topRight.add(lblKasir);
@@ -156,7 +166,24 @@ public class KasirFrame extends JFrame {
         JLabel lNama = smallLabel("Nama");
         txtNamaPelanggan = new JTextField(13);
         styleInput(txtNamaPelanggan);
+        
+        txtNamaPelanggan.getDocument().addDocumentListener(
+            new javax.swing.event.DocumentListener() {
 
+                public void insertUpdate(javax.swing.event.DocumentEvent e) {
+                    cekMemberSaatKetik();
+                }
+
+                public void removeUpdate(javax.swing.event.DocumentEvent e) {
+                    cekMemberSaatKetik();
+                }
+
+                public void changedUpdate(javax.swing.event.DocumentEvent e) {
+                    cekMemberSaatKetik();
+                }
+            }
+        );
+               
         JLabel lTipe = smallLabel("Tipe");
         cmbTipeMember = new JComboBox<>(new String[]{"REGULAR", "PREMIUM", "VIP"});
         styleCombo(cmbTipeMember);
@@ -413,6 +440,30 @@ public class KasirFrame extends JFrame {
         lblPelangganInfo.setText(pelangganAktif.getNama() + "  ·  " + tipe + "  ·  " + pelangganAktif.getPoin() + " poin");
         updateRingkasanHarga();
     }
+    
+    private void cekMemberSaatKetik() {
+        String nama = txtNamaPelanggan.getText().trim();
+        if (nama.isEmpty()) {
+            lblPelangganInfo.setText("—");
+            return;
+        }
+        for (Pelanggan p : daftarMember) {
+            if (p.getNama().equalsIgnoreCase(nama)) {
+
+                cmbTipeMember.setSelectedItem(
+                        p.getTipeMember().toUpperCase()
+                );
+
+                lblPelangganInfo.setText(
+                        p.getNama() + " · " +
+                        p.getTipeMember() + " · " +
+                        p.getPoin() + " poin"
+                );
+                return;
+            }
+        }
+        lblPelangganInfo.setText("Member baru");
+    }
 
     private void tambahKeKeranjang() {
         int row = tblProduk.getSelectedRow();
@@ -485,8 +536,12 @@ public class KasirFrame extends JFrame {
         double totalBersih = kasirService.hitungTotalTagihan();
 
         if ("Tunai".equals(metodePilihan)) {
-            String input = JOptionPane.showInputDialog(this,
-                "Total: " + rupiahFmt.format(totalBersih) + "\nJumlah uang tunai:");
+            UIManager.put("OptionPane.messageFont",
+                    new Font("Segoe UI", Font.PLAIN, 12));
+
+            String input = JOptionPane.showInputDialog(
+                    this,
+                    "Total: " + rupiahFmt.format(totalBersih) + "\nJumlah uang tunai:");
             if (input == null) return;
             try {
                 jumlahBayar = Double.parseDouble(input.replace(",", "").replace(".", ""));
