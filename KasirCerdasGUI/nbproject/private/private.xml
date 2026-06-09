@@ -2,6 +2,23 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/D:/java/PboKelas/Projek-PBO/KasirCerdasGUI/data/pelanggan.json</file>
+            <file>file:/D:/java/PboKelas/Projek-PBO/KasirCerdasGUI/data/produk.json</file>
+            <file>file:/D:/java/PboKelas/Projek-PBO/KasirCerdasGUI/data/transaksi.json</file>
+            <file>file:/D:/java/PboKelas/Projek-PBO/KasirCerdasGUI/src/UI/TransaksiKasirUI.java</file>
+            <file>file:/D:/java/PboKelas/Projek-PBO/KasirCerdasGUI/src/controller/KasirController.java</file>
+            <file>file:/D:/java/PboKelas/Projek-PBO/KasirCerdasGUI/src/util/JsonUtil.java</file>
+            <file>file:/D:/java/PboKelas/Projek-PBO/KasirCerdasGUI/src/model/ItemKeranjang.java</file>
+            <file>file:/D:/java/PboKelas/Projek-PBO/KasirCerdasGUI/src/service/KasirService.java</file>
+            <file>file:/D:/java/PboKelas/Projek-PBO/KasirCerdasGUI/src/interfaces/DiskonStrategi.java</file>
+            <file>file:/D:/java/PboKelas/Projek-PBO/KasirCerdasGUI/src/service/DiskonMemberService.java</file>
+            <file>file:/D:/java/PboKelas/Projek-PBO/KasirCerdasGUI/src/model/Produk.java</file>
+            <file>file:/D:/java/PboKelas/Projek-PBO/KasirCerdasGUI/src/service/StokService.java</file>
+            <file>file:/D:/java/PboKelas/Projek-PBO/KasirCerdasGUI/src/interfaces/MetodePembayaran.java</file>
+            <file>file:/D:/java/PboKelas/Projek-PBO/KasirCerdasGUI/src/service/PembayaranEWallet.java</file>
+            <file>file:/D:/java/PboKelas/Projek-PBO/KasirCerdasGUI/src/service/PembayaranKartu.java</file>
+            <file>file:/D:/java/PboKelas/Projek-PBO/KasirCerdasGUI/src/service/PembayaranTunai.java</file>
+        </group>
     </open-files>
 </project-private>

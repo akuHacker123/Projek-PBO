@@ -1,9 +1,9 @@
 package main;
 
-import controller.KasirController;
+import view.LoginFrame;
 
 public class Main {
     public static void main(String[] args) {
-        new KasirController();
+        javax.swing.SwingUtilities.invokeLater(LoginFrame::new);
     }
 }

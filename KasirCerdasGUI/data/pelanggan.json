@@ -22,5 +22,23 @@
     "nama": "Galski",
     "tipeMember": "REGULAR",
     "poin": 150
+  },
+  {
+    "idPelanggan": "M-1781001931016",
+    "nama": "Olivia",
+    "tipeMember": "REGULAR",
+    "poin": 155
+  },
+  {
+    "idPelanggan": "M-1781001976717",
+    "nama": "Puti",
+    "tipeMember": "VIP",
+    "poin": 211
+  },
+  {
+    "idPelanggan": "M-1781002872419",
+    "nama": "Khanza",
+    "tipeMember": "PREMIUM",
+    "poin": 47
   }
 ]

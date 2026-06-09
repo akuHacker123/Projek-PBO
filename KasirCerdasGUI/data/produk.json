@@ -3,18 +3,18 @@
     "idProduk": "P001",
     "nama": "Laptop ASUS ROG",
     "harga": 700000.0,
-    "stok": 9979
+    "stok": 9978
   },
   {
     "idProduk": "P002",
     "nama": "Mouse Gaming RGB",
     "harga": 500000.0,
-    "stok": 10
+    "stok": 6
   },
   {
     "idProduk": "P003",
     "nama": "Keyboard Mech",
     "harga": 850000.0,
-    "stok": 4
+    "stok": 2
   }
 ]
