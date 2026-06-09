@@ -36,7 +36,7 @@ public class AdminDashboard extends JFrame {
 
     public AdminDashboard(User user) {
         this.userAktif = user;
-        setTitle("Dashboard Admin - Chikempruy Computer");
+        setTitle("Dashboard Admin");
         setSize(900, 600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
