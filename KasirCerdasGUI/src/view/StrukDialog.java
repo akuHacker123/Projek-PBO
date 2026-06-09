@@ -7,6 +7,7 @@ package view;
 import model.*;
 
 import javax.swing.*;
+import javax.swing.border.*;
 import java.awt.*;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -18,7 +19,10 @@ import java.util.Locale;
  */
 public class StrukDialog extends JDialog {
 
-    private final NumberFormat rupiahFmt = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
+    private static final int PANEL_W = 300;
+    private static final Font FONT_MONO_S = new Font("Monospaced", Font.PLAIN, 11);
+    private static final Font FONT_UI_S   = new Font("Segoe UI",   Font.PLAIN, 11);
+    private static final Font FONT_UI_B   = new Font("Segoe UI",   Font.BOLD,  13);
 
     public StrukDialog(Frame parent, Transaksi trx, Pelanggan pelanggan,
                        double dibayar, double kembalian, String metodeNama) {
@@ -28,137 +32,199 @@ public class StrukDialog extends JDialog {
 
     private void initComponents(Transaksi trx, Pelanggan pelanggan,
                                  double dibayar, double kembalian, String metodeNama) {
-        setSize(380, 600);
-        setLocationRelativeTo(getParent());
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setResizable(false);
+        getContentPane().setBackground(Color.WHITE);
 
-        JPanel panel = new JPanel();
+        // ── ROOT PANEL pakai BoxLayout Y, lebar fixed ──
+        JPanel panel = new JPanel() {
+            @Override public Dimension getPreferredSize() {
+                return new Dimension(PANEL_W, super.getPreferredSize().height);
+            }
+        };
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBackground(Color.WHITE);
-        panel.setBorder(BorderFactory.createEmptyBorder(20, 24, 20, 24));
+        panel.setBorder(new EmptyBorder(16, 20, 16, 20));
 
-        panel.add(centerLabel("TOKO ELEKTRONIK SEJAHTERA", Font.BOLD, 15, new Color(30, 30, 47)));
-        panel.add(centerLabel("Jl. Sudirman No. 99, Semarang", Font.PLAIN, 11, Color.GRAY));
-        panel.add(centerLabel("Telp: 024-123456", Font.PLAIN, 11, Color.GRAY));
-        panel.add(garis());
-        panel.add(Box.createVerticalStrut(4));
-
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        panel.add(barisDua("No. Nota:", trx.getIdTransaksi()));
-        panel.add(barisDua("Tanggal:", sdf.format(trx.getTanggal())));
-        panel.add(barisDua("Kasir:", "Admin"));
-        panel.add(barisDua("Pelanggan:", pelanggan.getNama() + " (" + pelanggan.getTipeMember() + ")"));
-        panel.add(Box.createVerticalStrut(4));
-        panel.add(garis());
-
-        JLabel lblItem = new JLabel("ITEM BELANJA:");
-        lblItem.setFont(new Font("Monospaced", Font.BOLD, 12));
-        lblItem.setAlignmentX(Component.LEFT_ALIGNMENT);
-        panel.add(lblItem);
-        panel.add(Box.createVerticalStrut(4));
-
-        for (ItemKeranjang item : trx.getListBelanjaan()) {
-            String nama = item.getProduk().getNama();
-            String baris1 = nama.length() > 22 ? nama.substring(0, 22) : nama;
-            panel.add(itemLabel(baris1));
-            String detail = String.format("  %dx %s = %s",
-                item.getKuantitas(),
-                rupiahFmt.format(item.getProduk().getHarga()),
-                rupiahFmt.format(item.getSubTotal()));
-            panel.add(itemLabel(detail));
-        }
-
-        panel.add(Box.createVerticalStrut(4));
-        panel.add(garis());
-
-        panel.add(barisDua("Total Kotor:", rupiahFmt.format(trx.getTotalKotor())));
-        if (trx.getDiskon() > 0) {
-            JPanel pDiskon = barisDua("Diskon:", "- " + rupiahFmt.format(trx.getDiskon()));
-            for (Component c : pDiskon.getComponents()) {
-                if (c instanceof JLabel && ((JLabel) c).getText().startsWith("-")) {
-                    ((JLabel) c).setForeground(new Color(39, 174, 96));
-                }
+        // ── LOGO ──
+        JLabel lblLogo = new JLabel() {
+            @Override protected void paintComponent(Graphics g) {
+                Graphics2D g2 = (Graphics2D) g.create();
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setColor(Color.BLACK);
+                int cx = getWidth() / 2;
+                int[] xAtap = {cx-28, cx, cx+28};
+                int[] yAtap = {22, 4, 22};
+                g2.fillPolygon(xAtap, yAtap, 3);
+                g2.fillRect(cx-22, 20, 44, 28);
+                g2.setColor(Color.WHITE);
+                g2.fillRect(cx-18, 26, 10, 10);
+                g2.fillRect(cx+8,  26, 10, 10);
+                g2.fillRect(cx-8,  32, 16, 16);
+                g2.dispose();
             }
-            panel.add(pDiskon);
-        }
-        panel.add(garis());
+        };
+        lblLogo.setPreferredSize(new Dimension(PANEL_W, 54));
+        lblLogo.setMaximumSize(new Dimension(Integer.MAX_VALUE, 54));
+        lblLogo.setAlignmentX(Component.LEFT_ALIGNMENT);
+        panel.add(lblLogo);
+        panel.add(Box.createVerticalStrut(6));
 
-        JPanel pTotal = barisDua("TOTAL BAYAR:", rupiahFmt.format(trx.getTotalBersih()));
-        for (Component c : pTotal.getComponents()) {
-            if (c instanceof JLabel) {
-                ((JLabel) c).setFont(new Font("Monospaced", Font.BOLD, 14));
-                ((JLabel) c).setForeground(new Color(231, 76, 60));
-            }
-        }
-        panel.add(pTotal);
-
-        panel.add(Box.createVerticalStrut(4));
-        panel.add(barisDua("Metode:", metodeNama));
-        panel.add(barisDua("Dibayar:", rupiahFmt.format(dibayar)));
-        if (kembalian > 0) {
-            panel.add(barisDua("Kembalian:", rupiahFmt.format(kembalian)));
-        }
-
-        panel.add(garis());
-        panel.add(Box.createVerticalStrut(4));
-        panel.add(barisDua("Poin Terkumpul:", pelanggan.getPoin() + " poin"));
+        // ── HEADER TOKO ──
+        panel.add(rowCenter("Chikempruy Computer", new Font("Segoe UI", Font.BOLD, 14)));
+        panel.add(rowCenter("Jl. Prof. Sudarto No 16D, Tembalang, Semarang", FONT_UI_S));
+        panel.add(rowCenter("No. Telp 081299887321", FONT_UI_S));
         panel.add(Box.createVerticalStrut(8));
-        panel.add(centerLabel("Terima kasih telah berbelanja!", Font.ITALIC, 12, Color.GRAY));
-        panel.add(centerLabel("Simpan struk ini sebagai bukti pembayaran", Font.PLAIN, 10, Color.LIGHT_GRAY));
-        panel.add(Box.createVerticalStrut(12));
+        panel.add(dash());
+        panel.add(Box.createVerticalStrut(6));
 
+        // ── INFO TRANSAKSI ──
+        SimpleDateFormat sdfTgl = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat sdfJam = new SimpleDateFormat("HH:mm:ss");
+        String tgl = sdfTgl.format(trx.getTanggal());
+        String jam = sdfJam.format(trx.getTanggal());
+
+        panel.add(row2col(tgl,  "Kasir", FONT_UI_S));
+        panel.add(row2col(jam,  "Admin", FONT_UI_S));
+        panel.add(Box.createVerticalStrut(4));
+        panel.add(rowLeft("No. " + buatIdStruk(), FONT_UI_S));
+        panel.add(Box.createVerticalStrut(6));
+        panel.add(dash());
+        panel.add(Box.createVerticalStrut(6));
+
+        // ── ITEM BELANJA ──
+        int nomorItem = 1, totalQty = 0;
+        for (ItemKeranjang item : trx.getListBelanjaan()) {
+            totalQty += item.getKuantitas();
+            panel.add(rowLeft(nomorItem + ". " + item.getProduk().getNama(),
+                              new Font("Segoe UI", Font.BOLD, 12)));
+            panel.add(row2col(
+                "  " + item.getKuantitas() + " x " + formatRp(item.getProduk().getHarga()),
+                formatRp(item.getSubTotal()), FONT_MONO_S));
+            panel.add(Box.createVerticalStrut(3));
+            nomorItem++;
+        }
+
+        panel.add(Box.createVerticalStrut(4));
+        panel.add(dash());
+        panel.add(Box.createVerticalStrut(4));
+
+        // Total QTY
+        panel.add(rowLeft("Total QTY : " + totalQty, FONT_UI_S));
+        panel.add(Box.createVerticalStrut(4));
+
+        // ── RINGKASAN ──
+        panel.add(row2col("Sub Total", formatRp(trx.getTotalKotor()), FONT_UI_S));
+        if (trx.getDiskon() > 0) {
+            panel.add(row2col("Diskon", "- " + formatRp(trx.getDiskon()), FONT_UI_S));
+        }
+        panel.add(row2col("Total", formatRp(trx.getTotalBersih()), FONT_UI_B));
+        panel.add(Box.createVerticalStrut(4));
+        panel.add(row2col("Bayar (" + metodeNama + ")", formatRp(dibayar), FONT_UI_S));
+        panel.add(row2col("Kembali", formatRp(Math.max(kembalian, 0)), FONT_UI_S));
+
+        panel.add(Box.createVerticalStrut(8));
+        panel.add(dash());
+        panel.add(Box.createVerticalStrut(8));
+        panel.add(rowCenter("Terimakasih Telah Berbelanja", FONT_UI_S));
+        panel.add(Box.createVerticalStrut(14));
+
+        // Tombol tutup
         JButton btnTutup = new JButton("Tutup");
-        btnTutup.setAlignmentX(Component.CENTER_ALIGNMENT);
-        btnTutup.setBackground(new Color(30, 30, 47));
+        btnTutup.setAlignmentX(Component.LEFT_ALIGNMENT);
+        btnTutup.setBackground(new Color(50, 50, 50));
         btnTutup.setForeground(Color.WHITE);
         btnTutup.setFocusPainted(false);
         btnTutup.setBorderPainted(false);
-        btnTutup.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        btnTutup.setOpaque(true);
+        btnTutup.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         btnTutup.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btnTutup.setMaximumSize(new Dimension(200, 36));
+        btnTutup.setMaximumSize(new Dimension(Integer.MAX_VALUE, 34));
         btnTutup.addActionListener(e -> dispose());
         panel.add(btnTutup);
 
-        JScrollPane scroll = new JScrollPane(panel);
+        // ScrollPane hanya vertikal, no horizontal bar
+        JScrollPane scroll = new JScrollPane(panel,
+            JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+            JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scroll.setBorder(null);
+        scroll.getVerticalScrollBar().setUnitIncrement(12);
+        scroll.setBackground(Color.WHITE);
+        scroll.getViewport().setBackground(Color.WHITE);
+
         add(scroll);
+        pack();
+        // Batasi tinggi max 580
+        setSize(PANEL_W + 40, Math.min(getHeight(), 580));
+        setLocationRelativeTo(getParent());
         setVisible(true);
     }
 
-    private JLabel centerLabel(String text, int style, int size, Color color) {
-        JLabel lbl = new JLabel(text, SwingConstants.CENTER);
-        lbl.setFont(new Font("Segoe UI", style, size));
-        lbl.setForeground(color);
-        lbl.setAlignmentX(Component.CENTER_ALIGNMENT);
-        lbl.setMaximumSize(new Dimension(Integer.MAX_VALUE, 24));
-        return lbl;
-    }
+    // ── HELPERS ──
 
-    private JLabel itemLabel(String text) {
-        JLabel lbl = new JLabel(text);
-        lbl.setFont(new Font("Monospaced", Font.PLAIN, 11));
-        lbl.setAlignmentX(Component.LEFT_ALIGNMENT);
-        return lbl;
-    }
-
-    private JPanel barisDua(String kiri, String kanan) {
-        JPanel p = new JPanel(new BorderLayout());
+    /** Baris 2 kolom pakai GridBagLayout agar lebar benar */
+    private JPanel row2col(String kiri, String kanan, Font font) {
+        JPanel p = new JPanel(new GridBagLayout());
         p.setBackground(Color.WHITE);
+        p.setOpaque(true);
         p.setMaximumSize(new Dimension(Integer.MAX_VALUE, 22));
-        JLabel lblK = new JLabel(kiri);
-        lblK.setFont(new Font("Monospaced", Font.PLAIN, 12));
-        JLabel lblN = new JLabel(kanan);
-        lblN.setFont(new Font("Monospaced", Font.PLAIN, 12));
-        lblN.setHorizontalAlignment(SwingConstants.RIGHT);
-        p.add(lblK, BorderLayout.WEST);
-        p.add(lblN, BorderLayout.EAST);
+        p.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        GridBagConstraints gcL = new GridBagConstraints();
+        gcL.gridx = 0; gcL.gridy = 0;
+        gcL.weightx = 1; gcL.fill = GridBagConstraints.HORIZONTAL;
+        gcL.anchor = GridBagConstraints.WEST;
+
+        GridBagConstraints gcR = new GridBagConstraints();
+        gcR.gridx = 1; gcR.gridy = 0;
+        gcR.weightx = 0; gcR.anchor = GridBagConstraints.EAST;
+
+        JLabel lK = new JLabel(kiri);  lK.setFont(font); lK.setForeground(Color.BLACK);
+        JLabel lR = new JLabel(kanan); lR.setFont(font); lR.setForeground(Color.BLACK);
+        p.add(lK, gcL);
+        p.add(lR, gcR);
         return p;
     }
 
-    private JSeparator garis() {
-        JSeparator sep = new JSeparator();
-        sep.setMaximumSize(new Dimension(Integer.MAX_VALUE, 2));
-        sep.setForeground(new Color(200, 200, 210));
-        return sep;
+    private JLabel rowLeft(String text, Font font) {
+        JLabel lbl = new JLabel(text);
+        lbl.setFont(font);
+        lbl.setForeground(Color.BLACK);
+        lbl.setOpaque(false);
+        lbl.setAlignmentX(Component.LEFT_ALIGNMENT);
+        lbl.setMaximumSize(new Dimension(Integer.MAX_VALUE, 20));
+        return lbl;
+    }
+
+    private JLabel rowCenter(String text, Font font) {
+        JLabel lbl = new JLabel(text, SwingConstants.CENTER);
+        lbl.setFont(font);
+        lbl.setForeground(Color.BLACK);
+        lbl.setOpaque(false);
+        lbl.setAlignmentX(Component.LEFT_ALIGNMENT);
+        lbl.setMaximumSize(new Dimension(Integer.MAX_VALUE, 20));
+        return lbl;
+    }
+
+    private JLabel dash() {
+        JLabel lbl = new JLabel("- ".repeat(24));
+        lbl.setFont(new Font("Monospaced", Font.PLAIN, 10));
+        lbl.setForeground(Color.BLACK);
+        lbl.setOpaque(false);
+        lbl.setAlignmentX(Component.LEFT_ALIGNMENT);
+        lbl.setMaximumSize(new Dimension(Integer.MAX_VALUE, 14));
+        return lbl;
+    }
+
+    private String buatIdStruk() {
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        StringBuilder sb = new StringBuilder(12);
+        java.util.Random rng = new java.util.Random();
+        for (int i = 0; i < 12; i++) sb.append(chars.charAt(rng.nextInt(chars.length())));
+        return sb.toString();
+    }
+
+    private String formatRp(double nominal) {
+        return "Rp " + String.format("%,.0f", nominal);
     }
 }

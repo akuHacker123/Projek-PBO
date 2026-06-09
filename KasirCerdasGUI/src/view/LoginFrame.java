@@ -5,6 +5,7 @@
 package view;
 
 import javax.swing.*;
+import javax.swing.border.*;
 import java.awt.*;
 /**
  *
@@ -14,108 +15,119 @@ public class LoginFrame extends JFrame {
 
     private JTextField txtUsername;
     private JPasswordField txtPassword;
-    private JButton btnLogin;
     private JLabel lblStatus;
 
     private static final String ADMIN_USER = "admin";
     private static final String ADMIN_PASS = "1234";
+
+    private static final Color BG = new Color(245, 245, 245);
+    private static final Color WHITE = Color.WHITE;
+    private static final Color BORDER_COLOR = new Color(220, 220, 220);
+    private static final Color TEXT_DARK = new Color(40, 40, 40);
+    private static final Color TEXT_GRAY = new Color(130, 130, 130);
+    private static final Color ACCENT = new Color(70, 130, 180);
 
     public LoginFrame() {
         initComponents();
     }
 
     private void initComponents() {
-        setTitle("Login Kasir");
+        setTitle("Login");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(380, 280);
+        setSize(360, 300);
         setLocationRelativeTo(null);
         setResizable(false);
+        getContentPane().setBackground(BG);
+        setLayout(new GridBagLayout());
 
-        JPanel panel = new JPanel(new GridBagLayout());
-        panel.setBackground(new Color(30, 30, 47));
-        panel.setBorder(BorderFactory.createEmptyBorder(20, 30, 20, 30));
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(6, 0, 6, 0);
+        JPanel card = new JPanel();
+        card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
+        card.setBackground(WHITE);
+        card.setBorder(new CompoundBorder(
+            new LineBorder(BORDER_COLOR),
+            new EmptyBorder(28, 32, 28, 32)
+        ));
 
-        JLabel lblTitle = new JLabel("SISTEM KASIR", SwingConstants.CENTER);
-        lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 20));
-        lblTitle.setForeground(new Color(99, 202, 183));
-        gbc.gridx = 0; gbc.gridy = 0; gbc.gridwidth = 2;
-        panel.add(lblTitle, gbc);
+        JLabel lblApp = new JLabel("Toko Elektronik");
+        lblApp.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        lblApp.setForeground(TEXT_DARK);
+        lblApp.setAlignmentX(Component.LEFT_ALIGNMENT);
+        card.add(lblApp);
 
-        JLabel lblSub = new JLabel("Toko Elektronik", SwingConstants.CENTER);
+        JLabel lblSub = new JLabel("Masuk ke sistem kasir");
         lblSub.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-        lblSub.setForeground(new Color(150, 150, 170));
-        gbc.gridy = 1;
-        panel.add(lblSub, gbc);
+        lblSub.setForeground(TEXT_GRAY);
+        lblSub.setAlignmentX(Component.LEFT_ALIGNMENT);
+        card.add(lblSub);
+        card.add(Box.createVerticalStrut(20));
 
-        gbc.gridy = 2; gbc.gridwidth = 1;
-        JLabel lblUser = new JLabel("Username:");
-        lblUser.setForeground(Color.WHITE);
-        lblUser.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-        gbc.gridx = 0;
-        panel.add(lblUser, gbc);
+        card.add(fieldLabel("Username"));
+        card.add(Box.createVerticalStrut(4));
+        txtUsername = new JTextField();
+        styleField(txtUsername);
+        card.add(txtUsername);
+        card.add(Box.createVerticalStrut(12));
 
-        gbc.gridx = 1;
-        txtUsername = new JTextField(15);
-        styleTextField(txtUsername);
-        panel.add(txtUsername, gbc);
+        card.add(fieldLabel("Password"));
+        card.add(Box.createVerticalStrut(4));
+        txtPassword = new JPasswordField();
+        styleField(txtPassword);
+        card.add(txtPassword);
+        card.add(Box.createVerticalStrut(6));
 
-        gbc.gridx = 0; gbc.gridy = 3;
-        JLabel lblPass = new JLabel("Password:");
-        lblPass.setForeground(Color.WHITE);
-        lblPass.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-        panel.add(lblPass, gbc);
+        lblStatus = new JLabel(" ");
+        lblStatus.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+        lblStatus.setForeground(new Color(200, 60, 60));
+        lblStatus.setAlignmentX(Component.LEFT_ALIGNMENT);
+        card.add(lblStatus);
+        card.add(Box.createVerticalStrut(10));
 
-        gbc.gridx = 1;
-        txtPassword = new JPasswordField(15);
-        styleTextField(txtPassword);
-        panel.add(txtPassword, gbc);
-
-        gbc.gridx = 0; gbc.gridy = 4; gbc.gridwidth = 2;
-        lblStatus = new JLabel(" ", SwingConstants.CENTER);
-        lblStatus.setForeground(new Color(255, 100, 100));
-        lblStatus.setFont(new Font("Segoe UI", Font.ITALIC, 11));
-        panel.add(lblStatus, gbc);
-
-        gbc.gridy = 5;
-        btnLogin = new JButton("LOGIN");
-        btnLogin.setBackground(new Color(99, 202, 183));
-        btnLogin.setForeground(new Color(30, 30, 47));
+        JButton btnLogin = new JButton("Masuk");
         btnLogin.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        btnLogin.setBackground(ACCENT);
+        btnLogin.setForeground(WHITE);
         btnLogin.setFocusPainted(false);
         btnLogin.setBorderPainted(false);
         btnLogin.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        panel.add(btnLogin, gbc);
+        btnLogin.setAlignmentX(Component.LEFT_ALIGNMENT);
+        btnLogin.setMaximumSize(new Dimension(Integer.MAX_VALUE, 36));
+        card.add(btnLogin);
+
+        add(card);
 
         btnLogin.addActionListener(e -> prosesLogin());
         txtPassword.addActionListener(e -> prosesLogin());
 
-        add(panel);
         setVisible(true);
     }
 
-    private void styleTextField(JTextField tf) {
-        tf.setBackground(new Color(50, 50, 70));
-        tf.setForeground(Color.WHITE);
-        tf.setCaretColor(Color.WHITE);
+    private JLabel fieldLabel(String text) {
+        JLabel lbl = new JLabel(text);
+        lbl.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        lbl.setForeground(TEXT_GRAY);
+        lbl.setAlignmentX(Component.LEFT_ALIGNMENT);
+        return lbl;
+    }
+
+    private void styleField(JTextField tf) {
         tf.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-        tf.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(80, 80, 110)),
-            BorderFactory.createEmptyBorder(4, 8, 4, 8)
+        tf.setForeground(TEXT_DARK);
+        tf.setBorder(new CompoundBorder(
+            new LineBorder(BORDER_COLOR),
+            new EmptyBorder(5, 8, 5, 8)
         ));
+        tf.setMaximumSize(new Dimension(Integer.MAX_VALUE, 34));
+        tf.setAlignmentX(Component.LEFT_ALIGNMENT);
     }
 
     private void prosesLogin() {
         String user = txtUsername.getText().trim();
         String pass = new String(txtPassword.getPassword());
-
         if (user.equals(ADMIN_USER) && pass.equals(ADMIN_PASS)) {
             dispose();
             new KasirFrame();
         } else {
-            lblStatus.setText("Username atau password salah!");
+            lblStatus.setText("Username atau password salah.");
             txtPassword.setText("");
         }
     }
