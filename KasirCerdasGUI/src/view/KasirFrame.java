@@ -420,25 +420,54 @@ public class KasirFrame extends JFrame {
         String tipe = (String) cmbTipeMember.getSelectedItem();
         pelangganAktif = null;
         for (Pelanggan p : daftarMember) {
-            if (p.getNama().equalsIgnoreCase(nama)) { pelangganAktif = p; break; }
+            if (p.getNama().equalsIgnoreCase(nama)) {
+                pelangganAktif = p;
+                break;
+            }
         }
         if (pelangganAktif == null) {
-            pelangganAktif = new Pelanggan("M-" + System.currentTimeMillis(), nama, tipe);
+            pelangganAktif = new Pelanggan(
+                    generateIdPelanggan(),
+                    nama,
+                    tipe
+            );
             daftarMember.add(pelangganAktif);
         } else {
             pelangganAktif.setTipeMember(tipe);
         }
+
         kasirService = new KasirService();
         modelKeranjang.setRowCount(0);
         kasirService.setPelanggan(pelangganAktif);
+
         if (!tipe.equalsIgnoreCase("REGULAR")) {
             kasirService.setDiskonStrategi(new DiskonMemberService());
         } else {
             kasirService.setDiskonStrategi(null);
         }
         JsonUtil.simpanKeJson("data/pelanggan.json", daftarMember);
-        lblPelangganInfo.setText(pelangganAktif.getNama() + "  ·  " + tipe + "  ·  " + pelangganAktif.getPoin() + " poin");
+
+        lblPelangganInfo.setText(
+                pelangganAktif.getNama() + "  ·  " +
+                pelangganAktif.getTipeMember() + "  ·  " +
+                pelangganAktif.getPoin() + " poin"
+        );
         updateRingkasanHarga();
+    }
+
+    private String generateIdPelanggan() {
+        int max = 0;
+        for (Pelanggan p : daftarMember) {
+            String id = p.getIdPelanggan();
+            if (id != null && id.matches("M\\d{6}")) {
+                int nomor = Integer.parseInt(id.substring(1));
+
+                if (nomor > max) {
+                    max = nomor;
+                }
+            }
+        }
+        return String.format("M%06d", max + 1);
     }
     
     private void cekMemberSaatKetik() {

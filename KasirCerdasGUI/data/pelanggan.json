@@ -1,50 +1,26 @@
 [
   {
-    "idPelanggan": "M-VIP-01",
-    "nama": "GalSkuy",
-    "tipeMember": "VIP",
-    "poin": 7128
-  },
-  {
-    "idPelanggan": "M-550",
-    "nama": "Galang",
-    "tipeMember": "VIP",
-    "poin": 0
-  },
-  {
-    "idPelanggan": "M-910",
-    "nama": "Galtot",
-    "tipeMember": "VIP",
-    "poin": 0
-  },
-  {
-    "idPelanggan": "M-REG-1779634629615",
-    "nama": "Galski",
-    "tipeMember": "REGULAR",
-    "poin": 150
-  },
-  {
-    "idPelanggan": "M-1781001931016",
+    "idPelanggan": "M000001",
     "nama": "Olivia",
     "tipeMember": "REGULAR",
-    "poin": 155
+    "poin": 220
   },
   {
-    "idPelanggan": "M-1781001976717",
+    "idPelanggan": "M000002",
+    "nama": "Galang",
+    "tipeMember": "PREMIUM",
+    "poin": 104
+  },
+  {
+    "idPelanggan": "M000003",
+    "nama": "Alin",
+    "tipeMember": "PREMIUM",
+    "poin": 1425
+  },
+  {
+    "idPelanggan": "M000004",
     "nama": "Puti",
     "tipeMember": "VIP",
-    "poin": 211
-  },
-  {
-    "idPelanggan": "M-1781002872419",
-    "nama": "Khanza",
-    "tipeMember": "PREMIUM",
     "poin": 274
-  },
-  {
-    "idPelanggan": "M-1781005920780",
-    "nama": "Nayla",
-    "tipeMember": "REGULAR",
-    "poin": 770
   }
 ]

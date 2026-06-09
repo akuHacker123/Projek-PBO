@@ -19,6 +19,20 @@
             <file>file:/D:/java/PboKelas/Projek-PBO/KasirCerdasGUI/src/service/PembayaranEWallet.java</file>
             <file>file:/D:/java/PboKelas/Projek-PBO/KasirCerdasGUI/src/service/PembayaranKartu.java</file>
             <file>file:/D:/java/PboKelas/Projek-PBO/KasirCerdasGUI/src/service/PembayaranTunai.java</file>
+            <file>file:/D:/java/PboKelas/Projek-PBO/KasirCerdasGUI/src/exception/PembayaranKurangException.java</file>
+            <file>file:/D:/java/PboKelas/Projek-PBO/KasirCerdasGUI/src/exception/ProdukTidakDitemukanException.java</file>
+            <file>file:/D:/java/PboKelas/Projek-PBO/KasirCerdasGUI/src/exception/StokTidakCukupException.java</file>
+            <file>file:/D:/java/PboKelas/Projek-PBO/KasirCerdasGUI/src/main/Main.java</file>
+            <file>file:/D:/java/PboKelas/Projek-PBO/KasirCerdasGUI/src/model/Pelanggan.java</file>
+            <file>file:/D:/java/PboKelas/Projek-PBO/KasirCerdasGUI/src/model/Transaksi.java</file>
+            <file>file:/D:/java/PboKelas/Projek-PBO/KasirCerdasGUI/src/view/KasirView.java</file>
+            <file>file:/D:/java/PboKelas/Projek-PBO/KasirCerdasGUI/src/view/LoginFrame.java</file>
+            <file>file:/D:/java/PboKelas/Projek-PBO/KasirCerdasGUI/src/view/KasirFrame.java</file>
+            <file>file:/D:/java/PboKelas/Projek-PBO/KasirCerdasGUI/src/view/StrukDialog.java</file>
+            <file>file:/D:/java/PboKelas/Projek-PBO/KasirCerdasGUI/src/model/User.java</file>
+            <file>file:/D:/java/PboKelas/Projek-PBO/KasirCerdasGUI/src/service/AuthService.java</file>
+            <file>file:/D:/java/PboKelas/Projek-PBO/KasirCerdasGUI/src/view/AdminDashboard.java</file>
+            <file>file:/D:/java/PboKelas/Projek-PBO/KasirCerdasGUI/data/users.json</file>
         </group>
     </open-files>
 </project-private>

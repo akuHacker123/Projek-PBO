@@ -2,19 +2,61 @@
   {
     "idProduk": "P001",
     "nama": "Laptop ASUS ROG",
-    "harga": 700000.0,
-    "stok": 9962
+    "harga": 1.5E7,
+    "stok": 4
   },
   {
     "idProduk": "P002",
     "nama": "Mouse Gaming RGB",
-    "harga": 500000.0,
-    "stok": 4
+    "harga": 250000.0,
+    "stok": 14
   },
   {
     "idProduk": "P003",
-    "nama": "Keyboard Mech",
+    "nama": "Keyboard Mechanical",
     "harga": 850000.0,
-    "stok": 2
+    "stok": 8
+  },
+  {
+    "idProduk": "P004",
+    "nama": "Monitor LG 24 Inch",
+    "harga": 2200000.0,
+    "stok": 5
+  },
+  {
+    "idProduk": "P005",
+    "nama": "Headset Gaming HyperX",
+    "harga": 650000.0,
+    "stok": 12
+  },
+  {
+    "idProduk": "P006",
+    "nama": "SSD NVMe 512GB",
+    "harga": 750000.0,
+    "stok": 20
+  },
+  {
+    "idProduk": "P007",
+    "nama": "RAM DDR4 16GB",
+    "harga": 650000.0,
+    "stok": 18
+  },
+  {
+    "idProduk": "P008",
+    "nama": "Flashdisk Sandisk 64GB",
+    "harga": 85000.0,
+    "stok": 30
+  },
+  {
+    "idProduk": "P009",
+    "nama": "Webcam Logitech C270",
+    "harga": 350000.0,
+    "stok": 10
+  },
+  {
+    "idProduk": "P010",
+    "nama": "Printer Epson L3250",
+    "harga": 2800000.0,
+    "stok": 4
   }
 ]
